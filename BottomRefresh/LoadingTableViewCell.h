@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+/** UITableViewCell subclass for "loading" cell
+ 
+ This is a `UITableViewCell` subclass for the cell that shows the "loading" message. 
+ The only thing this class is really doing is exposing the `IBOutlet` for the `UIActivityIndicatorView`.
+ */
+
 @interface LoadingTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
