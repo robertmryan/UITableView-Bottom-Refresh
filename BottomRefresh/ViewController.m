@@ -5,10 +5,17 @@
 //  Created by Robert Ryan on 5/26/15.
 //  Copyright (c) 2015 Robert Ryan. All rights reserved.
 //
+//  This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+//  http://creativecommons.org/licenses/by-sa/4.0/
 
 #import "ViewController.h"
+#import "LoadingTableViewCell.h"
 
 @interface ViewController ()
+
+@property (nonatomic, strong) NSMutableArray *objects;
+
+@property (nonatomic) BOOL fetchInProgress;
 
 @end
 
@@ -16,12 +23,76 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    self.objects = [NSMutableArray array];
+    
+    [self addSomeObjects];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - UITableViewDataSource
+
+// add one for the "loading" cell
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.objects.count + 1;
 }
+
+// if within the range of cells, return cell with object in it, otherwise show loading cell
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellStandardIdentifier = @"Cell";
+    static NSString *cellLoadingIdentifier = @"Loading";
+    
+    if (indexPath.row < self.objects.count) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStandardIdentifier forIndexPath:indexPath];
+        cell.textLabel.text = self.objects[indexPath.row];
+        return cell;
+    } else {
+        LoadingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellLoadingIdentifier forIndexPath:indexPath];
+        [cell.activityIndicatorView startAnimating];
+        
+        if (!self.fetchInProgress) {
+            [self fetchMoreDataWithLoadingIndexPath:indexPath];
+        }
+        return cell;
+    }
+}
+
+#pragma mark - Data Fetching 
+
+- (void)fetchMoreDataWithLoadingIndexPath:(NSIndexPath *)indexPath {
+    typeof(self) __weak weakSelf = self;
+    
+    self.fetchInProgress = TRUE;
+
+    // this simulates a background fetch; I'm just going to delay for a second
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        typeof(self) strongSelf = weakSelf;
+        if (strongSelf) {
+            NSArray *indexPaths = [strongSelf addSomeObjects];
+            [strongSelf.tableView beginUpdates];
+            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+            [strongSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+            strongSelf.fetchInProgress = FALSE;
+            [strongSelf.tableView endUpdates];
+        }
+    });
+}
+
+- (NSArray *)addSomeObjects {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterSpellOutStyle;
+    
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    
+    for (NSInteger i = 0; i < 20; i++) {
+        [self.objects addObject:[formatter stringFromNumber:@([self.objects count] + 1)]];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:self.objects.count - 1 inSection:0]];
+    }
+    
+    return indexPaths;
+}
+
 
 @end

@@ -14,6 +14,7 @@
 		83A35ADF1B14C4EE005E763C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83A35ADE1B14C4EE005E763C /* Images.xcassets */; };
 		83A35AE21B14C4EE005E763C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83A35AE01B14C4EE005E763C /* LaunchScreen.xib */; };
 		83A35AEE1B14C4F1005E763C /* BottomRefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A35AED1B14C4F1005E763C /* BottomRefreshTests.m */; };
+		83A35AF91B14CBE6005E763C /* LoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A35AF81B14CBE6005E763C /* LoadingTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,9 @@
 		83A35AE71B14C4F0005E763C /* BottomRefreshTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BottomRefreshTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A35AEC1B14C4F1005E763C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83A35AED1B14C4F1005E763C /* BottomRefreshTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomRefreshTests.m; sourceTree = "<group>"; };
+		83A35AF71B14CBE6005E763C /* LoadingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingTableViewCell.h; sourceTree = "<group>"; };
+		83A35AF81B14CBE6005E763C /* LoadingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingTableViewCell.m; sourceTree = "<group>"; };
+		83A35AFA1B14CD91005E763C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,7 @@
 		83A35AC51B14C4EB005E763C = {
 			isa = PBXGroup;
 			children = (
+				83A35AFA1B14CD91005E763C /* README.md */,
 				83A35AD01B14C4EC005E763C /* BottomRefresh */,
 				83A35AEA1B14C4F0005E763C /* BottomRefreshTests */,
 				83A35ACF1B14C4EC005E763C /* Products */,
@@ -85,6 +90,8 @@
 				83A35AD61B14C4ED005E763C /* AppDelegate.m */,
 				83A35AD81B14C4ED005E763C /* ViewController.h */,
 				83A35AD91B14C4ED005E763C /* ViewController.m */,
+				83A35AF71B14CBE6005E763C /* LoadingTableViewCell.h */,
+				83A35AF81B14CBE6005E763C /* LoadingTableViewCell.m */,
 				83A35ADB1B14C4EE005E763C /* Main.storyboard */,
 				83A35ADE1B14C4EE005E763C /* Images.xcassets */,
 				83A35AE01B14C4EE005E763C /* LaunchScreen.xib */,
@@ -221,6 +228,7 @@
 			files = (
 				83A35ADA1B14C4ED005E763C /* ViewController.m in Sources */,
 				83A35AD71B14C4ED005E763C /* AppDelegate.m in Sources */,
+				83A35AF91B14CBE6005E763C /* LoadingTableViewCell.m in Sources */,
 				83A35AD41B14C4EC005E763C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

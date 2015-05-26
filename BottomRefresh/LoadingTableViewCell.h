@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  LoadingTableViewCell.h
 //  BottomRefresh
 //
 //  Created by Robert Ryan on 5/26/15.
@@ -10,8 +10,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UITableViewController
+@interface LoadingTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @end
-
