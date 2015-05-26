@@ -15,8 +15,6 @@
 
 @property (nonatomic, strong) NSMutableArray *objects;
 
-@property (nonatomic) BOOL fetchInProgress;
-
 @end
 
 @implementation ViewController
@@ -51,19 +49,27 @@
         LoadingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellLoadingIdentifier forIndexPath:indexPath];
         [cell.activityIndicatorView startAnimating];
         
-        if (!self.fetchInProgress) {
-            [self fetchMoreDataWithLoadingIndexPath:indexPath];
-        }
+        [self fetchMoreData];
+
         return cell;
     }
 }
 
 #pragma mark - Data Fetching 
 
-- (void)fetchMoreDataWithLoadingIndexPath:(NSIndexPath *)indexPath {
+/** Fetch more data.
+ 
+ Simulate network request fetching more data. When done, it will reload the tableview.
+ */
+- (void)fetchMoreData {
+    static BOOL fetchInProgress = FALSE;
+    
+    if (fetchInProgress)
+        return;
+    
     typeof(self) __weak weakSelf = self;
     
-    self.fetchInProgress = TRUE;
+    fetchInProgress = TRUE;
 
     // this simulates a background fetch; I'm just going to delay for a second
     
@@ -72,13 +78,20 @@
         if (strongSelf) {
             NSArray *indexPaths = [strongSelf addSomeObjects];
             [strongSelf.tableView beginUpdates];
-            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-            [strongSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
-            strongSelf.fetchInProgress = FALSE;
+            [strongSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+            fetchInProgress = FALSE;
             [strongSelf.tableView endUpdates];
         }
     });
 }
+
+/** Add some objects to our model.
+ 
+ This simulates the retrieval of 20 more items from our data source. This adds the objects to our model 
+ returns an array of `NSIndexPath objects that we can use to refresh our table view.
+ 
+ @return An array of `NSIndexPath` objects.
+ */
 
 - (NSArray *)addSomeObjects {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
