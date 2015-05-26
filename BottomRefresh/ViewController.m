@@ -35,7 +35,7 @@
     return self.objects.count + 1;
 }
 
-// if within the range of cells, return cell with object in it, otherwise show loading cell
+// if within the range of model, return cell with model object in it, otherwise show "loading" cell.
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellStandardIdentifier = @"Cell";
